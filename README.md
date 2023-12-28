@@ -5,6 +5,8 @@ C++ interface for the [Adafruit Bluefruit LE UART Friend](https://www.adafruit.c
 
 ## Implementation and basic use
 
+This exampleuses `huart1` for the UART communication with the Bluefruit LE device.
+
 **Main loop**
 ```cpp
   /* USER CODE BEGIN WHILE */

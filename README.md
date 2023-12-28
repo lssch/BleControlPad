@@ -8,7 +8,7 @@ C++ interface for the [Adafruit Bluefruit LE UART Friend](https://www.adafruit.c
 **Main loop**
 ```cpp
   /* USER CODE BEGIN WHILE */
-  HAL_UART_Receive_DMA(&huart1, bluefruit.get_rx_buffer(), bluefruit.get_rx_buffer_length());
+  HAL_UARTEx_ReceiveToIdle_DMA(&huart1, bluefruit.get_rx_buffer(), bluefruit.get_rx_buffer_length());
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "EndlessLoop"
   while (true) {
@@ -20,15 +20,17 @@ C++ interface for the [Adafruit Bluefruit LE UART Friend](https://www.adafruit.c
   }
 #pragma clang diagnostic pop
   /* USER CODE END 3 */
+}
 ```
 
 **Interrupt**
 ```cpp
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
-  if (huart == &huart1) {
-    HAL_UART_DMAStop(huart);
-    bluefruit.parse();
-    HAL_UART_Receive_DMA(huart, bluefruit.get_rx_buffer(), bluefruit.get_rx_buffer_length());
-  }
+void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t size) {
+  if (huart->Instance != USART2) return;
+
+  std::cout << "Interrupt received: " << size << "bytes" << std::endl;
+  __HAL_DMA_DISABLE_IT(&hdma_usart1_rx, DMA_IT_HT);
+  bluefruit.parse(size);
+  HAL_UARTEx_ReceiveToIdle_DMA(&huart2, (uint8_t *) bluefruit.get_rx_buffer(), bluefruit.get_rx_buffer_length());
 }
 ``````

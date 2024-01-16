@@ -1,5 +1,5 @@
 # Bluefruit interface
-C++ interface for the [Adafruit Bluefruit LE UART Friend](https://www.adafruit.com/product/2479) module on IOS, MACOS and Android mobile devices using the [bluefruit-protocoll](https://learn.adafruit.com/bluefruit-le-connect/controller).
+C++ interface for the [Adafruit Bluefruit LE UART Friend](https://www.adafruit.com/product/2479) module on IOS, MacOS and Android mobile devices using the [bluefruit-protocoll](https://learn.adafruit.com/bluefruit-le-connect/controller).
 
 
 
